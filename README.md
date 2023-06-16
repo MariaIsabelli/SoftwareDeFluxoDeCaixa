@@ -1,5 +1,3 @@
-# SoftwareDeFluxoDeCaixa
-Software de fluxo de caixa, desenvolvido como TCC do Técnico em Desenvolvimento de Sistemas - Senai - Botucatu -SP 7.91
 # SOFTWARE DE FLUXO DE CAIXA
 
 software desenvolvido como TCC para o curso Técnico em Desenvolvimento de Sistemas da Escola Técnica SENAI - Botucatu - SP 7.91.
