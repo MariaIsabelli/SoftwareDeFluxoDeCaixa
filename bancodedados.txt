@@ -1,0 +1,80 @@
+-- Criação do banco de dados
+CREATE DATABASE IF NOT EXISTS FluxoDeCaixaDB;
+USE FluxoDeCaixaDB;
+
+-- Tabela Usuario
+CREATE TABLE Usuario (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(250) NOT NULL,
+    CPF VARCHAR(15) UNIQUE NOT NULL,
+    Email VARCHAR(50) NOT NULL,
+    Senha VARCHAR(255) NOT NULL,
+    Ativo BOOLEAN NOT NULL
+);
+
+-- Tabela EntradaValores
+CREATE TABLE EntradaValores (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    ValorEntrada DOUBLE,
+    TipoDeEntrada VARCHAR(255),
+    Data_Entrada DATE
+);
+
+-- Tabela SaidaValores
+CREATE TABLE SaidaValores (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    ValorSaida DOUBLE,
+    TipoDeSaida VARCHAR(255),
+    Data_Saida DATE
+);
+
+-- Tabela Produtos
+CREATE TABLE Produtos (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    ID_EntradaDeValores INT,
+    ID_SaidaDeValores INT,
+    TipoDeEntrada VARCHAR(255),
+    Data_Entrada DATE,
+    FOREIGN KEY (ID_EntradaDeValores) REFERENCES EntradaValores(ID),
+    FOREIGN KEY (ID_SaidaDeValores) REFERENCES SaidaValores(ID)
+);
+
+-- Tabela FluxoDeCaixa
+CREATE TABLE FluxoDeCaixa (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    Id_Usuario INT,
+    Id_EntradaDeValores INT,
+    Id_SaidaDeValores INT,
+    ValorEntrada DOUBLE,
+    ValorSaida DOUBLE,
+    Data_Entrada DATE,
+    Data_Saida DATE,
+    FOREIGN KEY (Id_Usuario) REFERENCES Usuario(ID),
+    FOREIGN KEY (Id_EntradaDeValores) REFERENCES EntradaValores(ID),
+    FOREIGN KEY (Id_SaidaDeValores) REFERENCES SaidaValores(ID)
+);
+
+-- Inserção de valores na tabela Usuario
+INSERT INTO Usuario (nome, CPF, Email, Senha, Ativo) VALUES
+('Maria Silva', '12345678901', 'maria@email.com', 'senha123', TRUE),
+('João Souza', '98765432100', 'joao@email.com', 'senha456', TRUE);
+
+-- Inserção de valores na tabela EntradaValores
+INSERT INTO EntradaValores (ValorEntrada, TipoDeEntrada, Data_Entrada) VALUES
+(1500.00, 'Venda de Produto', '2024-02-01'),
+(3000.00, 'Serviço Prestado', '2024-02-05');
+
+-- Inserção de valores na tabela SaidaValores
+INSERT INTO SaidaValores (ValorSaida, TipoDeSaida, Data_Saida) VALUES
+(500.00, 'Pagamento de Fornecedor', '2024-02-03'),
+(200.00, 'Despesas Operacionais', '2024-02-07');
+
+-- Inserção de valores na tabela Produtos
+INSERT INTO Produtos (ID_EntradaDeValores, ID_SaidaDeValores, TipoDeEntrada, Data_Entrada) VALUES
+(1, 1, 'Eletrônico', '2024-02-01'),
+(2, 2, 'Serviço', '2024-02-05');
+
+-- Inserção de valores na tabela FluxoDeCaixa
+INSERT INTO FluxoDeCaixa (Id_Usuario, Id_EntradaDeValores, Id_SaidaDeValores, ValorEntrada, ValorSaida, Data_Entrada, Data_Saida) VALUES
+(1, 1, 1, 1500.00, 500.00, '2024-02-01', '2024-02-03'),
+(2, 2, 2, 3000.00, 200.00, '2024-02-05', '2024-02-07');
